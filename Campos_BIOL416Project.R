@@ -45,7 +45,10 @@ infection_data <- as.data.frame(read_xlsx(path = 'infection_data.xlsx', sheet = 
   infection_data_site_counts <- dcast(data = infection_data, formula = Island~Site)
     # this looks pretty cool for visualizing sample counts by site
 
-##### Now try creating a sample map of rthe big Island
+# I like the way the site counts look in the wide format so I will export
+  write_csv(x = infection_data_site_counts, file = 'sample_site.counts.csv')
+
+##### Now try creating a sample map of rthe big Island ----
   
 # import the data set that contains the coordinate info for all sites on all islands
 amak_data <- as.data.frame(read_xlsx(path = 
