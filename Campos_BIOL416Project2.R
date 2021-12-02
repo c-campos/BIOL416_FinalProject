@@ -21,10 +21,10 @@ for(i in 1:length(infection_data$infection_status)){
       infection_binary[i] <- print(1) }
 }
 
-
 # use 'cbind' to merge the two data storage objects together
 infection_data <- cbind(infection_data, infection_binary)
 head(infection_data)
+
 # create a function to change the format of 'Date Sampled' to a more accepted format
 date <- function(date){
   y <- gsub(pattern = '\\.', replacement = '/', x = date)
@@ -33,9 +33,11 @@ date <- function(date){
   
   return(new.date)
 }
+
 # use 'lapply' to change the values in 'Date Sampled' to the corrected format
 infection_data$`Date Sampled` <- lapply(X = infection_data$`Date Sampled`, FUN = date)
 head(infection_data)
+
 # sort the data by Island because i like it better that way
 infection_data <- infection_data[order(infection_data$Island), ]
 
@@ -45,7 +47,8 @@ head(infection_data_w)
 
 # not quite what i thought so I will try dcast()
 infection_data_site_counts <- reshape2::dcast(data = infection_data, 
-                                              formula = Island~Site, fun.aggregate = length)
+    formula = Island~Site, fun.aggregate = length)
+
 infection_data_site_counts
 
 # this looks pretty cool for visualizing sample counts by site so I will export this file
@@ -101,7 +104,7 @@ KAU_dat <- subset(x = amak_lat_long, subset = Island == 'Kauai')
 hawaii_full <- rgdal::readOGR(dsn = 'Elevation_Ranges/')
 buf <- 0.15
 
-# plot the Hawaii data points ----
+# plot the Hawaii data points and export as a .jpeg file ----
 
 jpeg('HAAM_sampleMap.jpeg', units = 'cm', width = 30, height = 30, res = 300 )
 
